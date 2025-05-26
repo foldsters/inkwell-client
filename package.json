@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "A WebSocket passthrough for Ink Terminal UI apps",
   "bin": {
-    "inkwell-cli": "./client.js"
+    "inkwell-cli": "client.js"
   },
   "author": "Foldster's Projects <foldsters@gmail.com",
   "license": "MIT",
