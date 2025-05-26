@@ -1,7 +1,38 @@
 #!/usr/bin/env node
 const WebSocket = require('ws');
+const { exec } = require('child_process');
 
-const port = process.argv[2] ? parseInt(process.argv[2], 10) : 5000;
+// Simple arg parser
+let port = 5000;
+let url = null;
+const args = process.argv.slice(2);
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--port' && args[i + 1]) {
+    port = parseInt(args[i + 1], 10);
+    i++;
+  } else if (args[i] === '--url' && args[i + 1]) {
+    url = args[i + 1];
+    i++;
+  }
+}
+
+// If url is specified, open it in the browser with the port param
+if (url) {
+  const urlObj = new URL(url);
+  urlObj.searchParams.set('port', port);
+  const openCmd =
+    process.platform === 'darwin'
+      ? `open "${urlObj.toString()}"`
+      : process.platform === 'win32'
+      ? `start "" "${urlObj.toString()}"`
+      : `xdg-open "${urlObj.toString()}"`;
+  exec(openCmd, (err) => {
+    if (err) {
+      console.error('Failed to open browser:', err);
+    }
+  });
+}
+
 const wss = new WebSocket.Server({ port });
 
 if (process.stdin.isTTY) {
@@ -11,13 +42,11 @@ if (process.stdin.isTTY) {
   console.warn('Warning: Not running in a TTY. Ctrl+C may not work.');
 }
 
-// Always listen for Ctrl+C
 process.stdin.on('data', (data) => {
   if (data.toString() === '\u0003') {
     console.log('\nReceived Ctrl+C, exiting...');
     process.exit();
   }
-  // If a client is connected, forward input
   wss.clients.forEach((ws) => {
     if (ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: 'stdin', data: data.toString() }));
@@ -42,4 +71,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-console.log(`Inkwell-CLI Ready on Port ${port}\n`);
+console.log(`WebSocket server listening on ws://localhost:${port}`);
+if (url) {
+  console.log(`Opened browser to: ${url}?port=${port}`);
+}

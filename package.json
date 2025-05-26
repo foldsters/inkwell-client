@@ -1,6 +1,6 @@
 {
   "name": "inkwell-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A WebSocket passthrough for Ink Terminal UI apps",
   "bin": {
     "inkwell-cli": "./client.js"
