@@ -1,0 +1,30 @@
+{
+  "name": "inkwell-cli",
+  "version": "1.0.0",
+  "description": "A WebSocket passthrough for Ink Terminal UI apps",
+  "bin": {
+    "inkwell-cli": "./cli.js"
+  },
+  "author": "Foldster's Projects <foldsters@gmail.com",
+  "license": "MIT",
+  "keywords": [
+    "inkwell",
+    "inkwell-cli",
+    "ink",
+    "term.ink",
+    "cli",
+    "websocket",
+    "terminal",
+    "browser"
+  ],
+  "scripts": {
+    "start": "node cli.js",
+    "dev": "nodemon cli.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
