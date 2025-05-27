@@ -71,7 +71,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-console.log(`WebSocket server listening on ws://localhost:${port}`);
+console.log(`Shellpage client listening on ws://localhost:${port}`);
 if (url) {
   console.log(`Opened browser to: ${url}?port=${port}`);
 }

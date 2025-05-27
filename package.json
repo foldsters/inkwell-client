@@ -1,21 +1,19 @@
 {
-  "name": "inkwell-client",
-  "version": "1.0.1",
-  "description": "A WebSocket passthrough for Ink Terminal UI apps",
+  "name": "shellpage",
+  "version": "1.0.0",
+  "description": "Like a webpage, but for shells.",
   "bin": {
     "inkwell-cli": "client.js"
   },
-  "author": "Foldster's Projects <foldsters@gmail.com",
+  "author": "Foldster's Projects <foldsters@gmail.com>",
   "license": "MIT",
   "keywords": [
-    "inkwell",
-    "inkwell-client",
-    "ink",
-    "term.ink",
-    "cli",
+    "shellpage",
+    "shell",
+    "page",
+    "client",
     "websocket",
-    "terminal",
-    "browser"
+    "terminal"
   ],
   "scripts": {
     "start": "node client.js",
