@@ -1,6 +1,6 @@
 {
   "name": "shellpage",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Like a webpage, but for shells!",
   "bin": {
     "inkwell-cli": "client.js"

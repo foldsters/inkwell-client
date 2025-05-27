@@ -43,9 +43,6 @@ if (process.stdin.isTTY) {
 }
 
 process.stdin.on('data', (data) => {
-  // Clear the terminal screen
-  process.stdout.write('\x1b[2J\x1b[H');
-
   if (data.toString() === '\u0003') {
     console.log('\nReceived Ctrl+C, exiting...');
     process.exit();
@@ -62,7 +59,41 @@ process.on('SIGINT', () => {
   process.exit();
 });
 
+// Spinner logic
+const spinnerFrames = ['⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'];
+let spinnerIndex = 0;
+let spinnerInterval = null;
+
+function startSpinner() {
+  spinnerInterval = setInterval(() => {
+    process.stdout.write(
+      `\r${spinnerFrames[spinnerIndex]} Shellpage client listening on port ${port} `
+    );
+    spinnerIndex = (spinnerIndex + 1) % spinnerFrames.length;
+  }, 80);
+}
+
+function stopSpinner() {
+  if (spinnerInterval) {
+    clearInterval(spinnerInterval);
+    spinnerInterval = null;
+    process.stdout.write('\r'); // Move to start of line
+    process.stdout.clearLine(0); // Clear the line
+  }
+}
+
+// Start spinner
+console.log("\n\x1b[1mShellpage!\x1b[0m\nIt's like a webpage, but for your terminal!\n");
+startSpinner();
+
 wss.on('connection', (ws) => {
+  // Stop spinner and print a clean message
+  stopSpinner();
+  console.log('✔️  Shellpage client connected!');
+
+  // Clear the terminal screen
+  process.stdout.write('\x1b[2J\x1b[H');
+
   ws.on('message', (msg) => {
     const { type, data } = JSON.parse(msg);
     if (type === 'stdout') process.stdout.write(data);
@@ -74,7 +105,6 @@ wss.on('connection', (ws) => {
   });
 });
 
-console.log(`Shellpage client listening on ws://localhost:${port}`);
 if (url) {
-  console.log(`Opened browser to: ${url}?port=${port}`);
+  console.log(`Opened browser to ${url}?port=${port}`);
 }
