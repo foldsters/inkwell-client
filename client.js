@@ -43,6 +43,9 @@ if (process.stdin.isTTY) {
 }
 
 process.stdin.on('data', (data) => {
+  // Clear the terminal screen
+  process.stdout.write('\x1b[2J\x1b[H');
+
   if (data.toString() === '\u0003') {
     console.log('\nReceived Ctrl+C, exiting...');
     process.exit();
