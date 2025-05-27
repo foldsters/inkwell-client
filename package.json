@@ -1,7 +1,7 @@
 {
   "name": "shellpage",
-  "version": "1.0.1",
-  "description": "Like a webpage, but for shells.",
+  "version": "1.0.3",
+  "description": "Like a webpage, but for shells!",
   "bin": {
     "inkwell-cli": "client.js"
   },
@@ -17,8 +17,7 @@
   ],
   "scripts": {
     "start": "node client.js",
-    "dev": "nodemon client.js",
-    "publish": "publish --access public"
+    "dev": "nodemon client.js"
   },
   "dependencies": {
     "ws": "^8.14.2"
