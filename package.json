@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "description": "Like a webpage, but for shells!",
   "bin": {
-    "inkwell-cli": "client.js"
+    "shellpage": "client.js"
   },
   "author": "Foldster's Projects <foldsters@gmail.com>",
   "license": "MIT",
